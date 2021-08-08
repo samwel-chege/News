@@ -1,1 +1,8 @@
-<h3> {{ message }} </h3>
+<body>
+    <h3>Top headlines</h3>
+    <ul>
+        {% for highlights in headlines %}
+             <li> {{ highlights.author }} </li>
+        {% endfor %}     
+    </ul>
+</body>
