@@ -1,8 +1,23 @@
-<body>
-    <h3>Top headlines</h3>
+{% extends 'base.html' %}
+{% import 'macros.html' as macro%}
+
+{% block content %}
+    <h3>Business News</h3>
     <ul>
-        {% for highlights in headlines %}
-             <li> {{ highlights.author }} </li>
-        {% endfor %}     
+        {{ macro.displayNewsList(business)}}
+             
     </ul>
-</body>
+    <h3>Technology News</h3>
+    <ul>
+       
+        {{ macro.displayNewsList(technology)}} </li>
+           
+    </ul>
+    <h3>General news</h3>
+    <ul>
+      
+        {{ macro.displayNewsList(general)}} </li>
+         
+    </ul>
+
+{% endblock %}

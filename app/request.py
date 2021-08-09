@@ -7,13 +7,13 @@ api_key = app.config['NEWS_API_KEY']
 
 #Getting the news base url
 
-base_url = app.config['NEWS_API_BASE_URL']
+base_url = app.config['NEWS_HIGHLIGHT_URL']
 
-def get_news():
+def get_news(category):
     '''
     Function that gets the json response to the url request
     '''
-    get_news_url = base_url.format(api_key)
+    get_news_url = base_url.format(category,api_key)
     
     with urllib.request.urlopen(get_news_url) as url:
         get_news_data = url.read()
@@ -28,7 +28,7 @@ def get_news():
     return news_results   
 
 
-def process_results(results_list):
+def process_results(news_list):
     '''
     Function that processes the news articles and transform them to a list of objects
 
@@ -40,17 +40,19 @@ def process_results(results_list):
     ''' 
 
     news_results = []  
-    for news_item in results_list:
+    for news_item in news_list:
            
         author = news_item.get('author')  
         title = news_item.get('title') 
         description  = news_item.get('description')
         url = news_item.get('url')
         urlToImage = news_item.get('urlToImage')
+        publishedAt = news_item.get('publishedAt')
+        content = news_item.get('content')
         
 
         if urlToImage:
-            news_object = Highlights(author,title,description,url,urlToImage)
+            news_object = Highlights(author,title,description,url,urlToImage,publishedAt,content)
             news_results.append(news_object)
 
     return news_results    
