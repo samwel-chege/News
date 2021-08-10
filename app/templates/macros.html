@@ -1,7 +1,49 @@
 {% macro displayNewsList(news_list) %}
 
   {% for news in  news_list %}
-    <li> {{ news.title }} </li>
+    <img src=" {{news.urlToImage}} " alt="" width="200" height="200" >
+    <p> {{ news.title }} </p>
+    <p> {{ news.content }} </p>
+    <p> {{ news.description }} </p>
+    <p> {{ news.author }} </p>
+    <p> {{ news.publishedAt }} </p>
+    <a href=" {{news.url}} "></a>
 
   {% endfor %}  
-{% endmacro %}  
+{% endmacro %} 
+
+{% macro displaySourceList(sources_list) %}
+
+  {%  for source in sources_list %}
+  <div class="col">
+      <div class="card">
+        <div class="card-body">
+        <p class="card-title"> {{ source.name }} </p>
+        <p class="card-text"> {{ source.description }} </p>
+        <p class="card-text"> {{ source.category }} </p>
+        <p class="card-text"> {{ source.language }} </p>
+        <p class="card-text"> {{ source.country }} </p>
+        <a href=" {{source.url}} "></a>
+        </div>
+      </div>
+  </div>
+    
+
+   {% endfor %} 
+{% endmacro %}   
+
+{% macro displayCastList(sources_list) %}
+
+  {%  for cast in cast_list %}
+    <p> {{ source.name }} </p>
+    <p> {{ source.description }} </p>
+    <p> {{ source.category }} </p>
+    <p> {{ source.language }} </p>
+    <p> {{ source.country }} </p>
+    <a href=" {{source.url}} "></a>
+
+   {% endfor %} 
+{% endmacro %}   
+
+
+
