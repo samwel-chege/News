@@ -128,25 +128,6 @@ def get_cast(source):
 
     return cast_results
 
-# def process_results(cast_list):
-
-#     cast_results =[]
-#     for news_item in cast_list:
-
-#         id = news_item.get('id')
-#         name = news_item.get('name')
-#         description = news_item.get('description')
-#         url = news_item.get('url')
-#         category = news_item.get('category')
-#         language = news_item.get('language')
-#         country = news_item.get('country')
-
-#         if name:
-#             cast_object = Sources(id,name,description,url,category,language,country)
-#             cast_results.append(cast_object)
-
-
-#     return cast_results
 
 
        
