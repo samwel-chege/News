@@ -1,5 +1,5 @@
 from os import name
-from app.models.highlights import  Articles,Sources
+from app.models import  Articles,Sources
 import urllib.request,json
 from config import Config 
 # from app import app 
@@ -18,6 +18,9 @@ def configure_request(app):
     cast_url = app.config['NEWS_CAST_URL']
     api_key = app.config['NEWS_API_KEY']
 
+    # api_key = 'd81f0b72e8394be9a3dddcc574e249ae'
+    # base_url =  'https://newsapi.org/v2/everything?q={}&apiKey={}'
+
 def get_news(category):
     '''
     Function that gets the json response to the url request
@@ -32,17 +35,17 @@ def get_news(category):
 
         if get_news_response['articles']:
             news_results_list = get_news_response['articles']
-            news_results = process_results(news_results_list)
+            news_results = process_index_results(news_results_list)
 
     return news_results  
 
 
-def process_results(news_list):
+def process_index_results(news_list):
     '''
     Function that processes the news articles and transform them to a list of objects
 
     Args:
-        articles_list: A list of dictionaries that contain movie details   
+        articles_list: A list of dictionaries that contain news details   
 
     Returns: 
            news_results: A list of news objects      
@@ -50,7 +53,6 @@ def process_results(news_list):
 
     news_results = []  
     for news_item in news_list:
-           
         author = news_item.get('author')  
         title = news_item.get('title') 
         description  = news_item.get('description')
@@ -59,7 +61,6 @@ def process_results(news_list):
         publishedAt = news_item.get('publishedAt')
         content = news_item.get('content')
        
-
         if urlToImage:
             news_object = Articles(author,title,description,url,urlToImage,publishedAt,content)
             news_results.append(news_object)
@@ -112,27 +113,40 @@ def process_results(sources_list):
 
     return sources_results     
 
-def get_cast(id):
-    get_cast_url = cast_url.format(id,api_key)
+def get_cast(source):
+    get_cast_url = cast_url.format(source,api_key)
 
     with urllib.request.urlopen(get_cast_url) as url:
-        cast_url_data = url.read()
-        cast_url_response = json.loads(cast_url_data)  
+        get_cast_data = url.read()
+        get_cast_response = json.loads(get_cast_data) 
 
-        cast_object = None
-        if cast_url_response:
-            id = cast_url_response.get('id')
-            name = cast_url_response.get('name')
-            description = cast_url_response.get('description')
-            url = cast_url_response.get('url')
-            category = cast_url_response.get('category')
-            language = cast_url_response.get('language')
-            country = cast_url_response.get('country')
+        cast_results = None
 
-            cast_object = Sources(name,description,url,category,language,country)
+        if get_cast_response['articles']:
+            cast_results_list = get_cast_response['articles']
+            cast_results = process_index_results(cast_results_list)
 
-        return cast_object    
+    return cast_results
 
+# def process_results(cast_list):
+
+#     cast_results =[]
+#     for news_item in cast_list:
+
+#         id = news_item.get('id')
+#         name = news_item.get('name')
+#         description = news_item.get('description')
+#         url = news_item.get('url')
+#         category = news_item.get('category')
+#         language = news_item.get('language')
+#         country = news_item.get('country')
+
+#         if name:
+#             cast_object = Sources(id,name,description,url,category,language,country)
+#             cast_results.append(cast_object)
+
+
+#     return cast_results
 
 
        

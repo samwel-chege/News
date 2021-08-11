@@ -1,38 +1,48 @@
 {% macro displayNewsList(news_list) %}
 
   {% for news in  news_list %}
-    <img src=" {{news.urlToImage}} " alt="" width="200" height="200" >
-    <p> {{ news.title }} </p>
-    <p> {{ news.content }} </p>
-    <p> {{ news.description }} </p>
-    <p> {{ news.author }} </p>
-    <p> {{ news.publishedAt }} </p>
-    <a href=" {{news.url}} "></a>
+  <div class="container">
+      <div class="card">
+          <div class="card-body">
+            <img src=" {{news.urlToImage}} " alt=""  >
+            <p> {{ news.title }} </p>
+            <p> {{ news.content }} </p>
+            <p> {{ news.description }} </p>
+            <p>Author:<cite> {{ news.author }}</cite> </p>
+            <p>Published: {{ news.publishedAt | truncate(13) }} </p>
+            <a href=" {{news.url}} " class="btn btn-info">Read more</a>
+          </div>
+      </div>
+  </div>
+   
 
   {% endfor %}  
 {% endmacro %} 
 
+
 {% macro displaySourceList(sources_list) %}
 
   {%  for source in sources_list %}
-  <div class="col">
+  <div class="container">
+      <div class="jumbotron">
       <div class="card">
         <div class="card-body">
-        <p class="card-title"> {{ source.name }} </p>
-        <p class="card-text"> {{ source.description }} </p>
-        <p class="card-text"> {{ source.category }} </p>
-        <p class="card-text"> {{ source.language }} </p>
-        <p class="card-text"> {{ source.country }} </p>
-        <a href=" {{source.url}} "></a>
+            <h3><strong> {{ source.name }} </strong></h3>
+            <p> {{ source.description }} </p>
+            <p>New's Category: {{ source.category }} </p>
+            <p>Language: {{ source.language }} </p>
+            <p>Country: {{ source.country }} </p>
+            <a href=" {{source.url}}  " class="btn btn-primary">Visit New's site</a>
         </div>
       </div>
+  </div>
   </div>
     
 
    {% endfor %} 
 {% endmacro %}   
 
-{% macro displayCastList(sources_list) %}
+{% macro displayCastList(cast_list) %}
 
   {%  for cast in cast_list %}
     <p> {{ source.name }} </p>

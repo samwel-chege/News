@@ -1,6 +1,6 @@
 
 from flask import render_template,request,redirect,url_for
-from ..request import get_news, get_sources
+from ..request import get_news, get_sources,get_cast
 from . import main
 
 #Views
@@ -14,6 +14,7 @@ def index():
     business_news = get_news('business')
     technology_news = get_news('technology')
     general_news = get_news('general')
+
     return render_template('index.html',business = business_news,technology = technology_news,general = general_news)
 
 @main.route('/news') 
@@ -29,8 +30,9 @@ def news():
 
 @main.route('/cast')
 def cast():
-        bbc_news = get_news('bbc-news')
-        abc_news = get_news('abc-news')
-        ary_news = get_news('ary-news')
-        bbc_sport = get_news('bbc-sport')
-        return render_template('cast.html',bbc = bbc_news,abc= abc_news,ary = ary_news,bbcs = bbc_sport)
+    bbc_news = get_cast('bbc-news')
+    abc_news = get_cast('abc-news')
+    ary_news = get_cast('ary-news')
+    bbc_sport = get_cast('bbc-sport')
+
+    return render_template('cast.html',bbc = bbc_news,abc= abc_news,ary = ary_news,bbcs = bbc_sport)
