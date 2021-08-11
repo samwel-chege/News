@@ -1,4 +1,4 @@
-from instance.config import NEWS_API_KEY
+
 from re import DEBUG
 import os
 
